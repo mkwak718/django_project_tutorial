@@ -1,17 +1,215 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book List</title>
-</head>
-<body>
-    <h1>Book List</h1>
-    <h2>Department of Computer Science</h2>
-    <ul>
-        {% for book in books %}
-            <li>
-                <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> by {{ book.author }}
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}BookVault — Discover Your Next Great Read{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600">
+    <div class="absolute inset-0 opacity-20">
+        <img
+            src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&q=80"
+            alt=""
+            class="w-full h-full object-cover"
+            aria-hidden="true"
+        >
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase bg-white/20 text-white rounded-full mb-6">
+                    Welcome to BookVault
+                </span>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+                    Discover Your Next<br>
+                    <span class="text-amber-300">Great Read</span>
+                </h1>
+                <p class="text-lg text-brand-100 leading-relaxed mb-8 max-w-lg">
+                    Explore a curated collection of books. From timeless classics to modern favorites — find stories that inspire, educate, and entertain.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#books" class="inline-flex items-center gap-2 px-6 py-3 bg-amber-400 text-brand-900 font-semibold rounded-xl hover:bg-amber-300 transition-colors shadow-lg shadow-black/20">
+                        Browse Collection
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <a href="#about" class="inline-flex items-center px-6 py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/30">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="hidden lg:block relative">
+                <div class="absolute -inset-4 bg-amber-400/20 rounded-3xl blur-2xl"></div>
+                <img
+                    src="https://images.unsplash.com/photo-1512820790801-83ca734da794?w=800&q=80"
+                    alt="Open book with warm lighting"
+                    class="relative rounded-2xl shadow-2xl shadow-black/30 w-full object-cover aspect-[4/3]"
+                >
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="bg-white border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+                <p class="text-3xl font-bold text-brand-700">{{ books|length }}</p>
+                <p class="text-sm text-stone-500 mt-1">Books Available</p>
+            </div>
+            <div>
+                <p class="text-3xl font-bold text-brand-700">100+</p>
+                <p class="text-sm text-stone-500 mt-1">Authors Featured</p>
+            </div>
+            <div>
+                <p class="text-3xl font-bold text-brand-700">24/7</p>
+                <p class="text-sm text-stone-500 mt-1">Always Open</p>
+            </div>
+            <div>
+                <p class="text-3xl font-bold text-brand-700">Free</p>
+                <p class="text-sm text-stone-500 mt-1">To Browse</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mb-4">Why BookVault?</h2>
+            <p class="text-stone-600 max-w-2xl mx-auto">Everything you need to explore and manage your reading journey in one elegant platform.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                <div class="w-14 h-14 rounded-xl overflow-hidden mb-5">
+                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=200&q=80" alt="Library shelves" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-lg font-semibold text-stone-900 mb-2">Curated Collection</h3>
+                <p class="text-stone-600 text-sm leading-relaxed">Hand-picked titles spanning every genre — fiction, non-fiction, science, and more.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                <div class="w-14 h-14 rounded-xl overflow-hidden mb-5">
+                    <img src="https://images.unsplash.com/photo-1456513080920-11dd7601e653?w=200&q=80" alt="Person reading" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-lg font-semibold text-stone-900 mb-2">Detailed Info</h3>
+                <p class="text-stone-600 text-sm leading-relaxed">ISBN, page count, publication date, and author details at your fingertips.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                <div class="w-14 h-14 rounded-xl overflow-hidden mb-5">
+                    <img src="https://images.unsplash.com/photo-1524995999572-5671be375687?w=200&q=80" alt="Stack of books" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-lg font-semibold text-stone-900 mb-2">Easy Management</h3>
+                <p class="text-stone-600 text-sm leading-relaxed">Add and manage books effortlessly through the built-in admin panel.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Books Catalog -->
+<section id="books" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+            <div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mb-2">Browse Our Collection</h2>
+                <p class="text-stone-600">Click any book to view full details.</p>
+            </div>
+            <span class="inline-flex items-center px-4 py-2 bg-brand-50 text-brand-700 text-sm font-medium rounded-full">
+                {{ books|length }} book{{ books|length|pluralize }} available
+            </span>
+        </div>
+
+        {% if books %}
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for book in books %}
+            <article class="group bg-stone-50 rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg hover:border-brand-200 transition-all duration-300">
+                <div class="relative aspect-[3/4] overflow-hidden bg-stone-200">
+                    <img
+                        src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80&sig={{ book.pk }}"
+                        alt="Cover for {{ book.title }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-semibold text-stone-900 line-clamp-2 group-hover:text-brand-700 transition-colors mb-1">
+                        <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+                    </h3>
+                    <p class="text-sm text-stone-500 mb-3">{{ book.author }}</p>
+                    <div class="flex items-center justify-between text-xs text-stone-400">
+                        <span>{{ book.published_date|date:"M Y" }}</span>
+                        <span>{{ book.pages }} pages</span>
+                    </div>
+                    <a href="{% url 'book_detail' book.pk %}" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:text-brand-700">
+                        View Details
+                        <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-16 bg-stone-50 rounded-2xl border border-dashed border-stone-300">
+            <img
+                src="https://images.unsplash.com/photo-1497633766205-344d1089661?w=400&q=80"
+                alt="Empty bookshelf"
+                class="w-48 h-32 object-cover rounded-xl mx-auto mb-6 opacity-60"
+            >
+            <h3 class="text-xl font-semibold text-stone-700 mb-2">No books yet</h3>
+            <p class="text-stone-500 mb-6">Add your first book through the admin panel to get started.</p>
+            <a href="/admin/" class="inline-flex items-center px-5 py-2.5 bg-brand-600 text-white text-sm font-medium rounded-lg hover:bg-brand-700 transition-colors">
+                Go to Admin
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-gradient-to-br from-stone-100 to-brand-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <img
+                    src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&q=80"
+                    alt="Cozy reading nook with books"
+                    class="rounded-2xl shadow-xl w-full object-cover aspect-[4/3]"
+                >
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-amber-400 rounded-2xl -z-10 hidden sm:block"></div>
+            </div>
+            <div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mb-6">About BookVault</h2>
+                <p class="text-stone-600 leading-relaxed mb-4">
+                    BookVault is a Django-powered digital library built to showcase the beauty of books. Whether you're a casual reader or a dedicated bibliophile, our platform makes it easy to browse titles, explore author details, and manage your collection.
+                </p>
+                <p class="text-stone-600 leading-relaxed mb-8">
+                    Built as a learning project, BookVault demonstrates modern web development with Django templates, Tailwind CSS, and a clean, responsive design that works on every device.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-stone-700">
+                        <span class="flex-shrink-0 w-6 h-6 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </span>
+                        Responsive design for mobile, tablet, and desktop
+                    </li>
+                    <li class="flex items-center gap-3 text-stone-700">
+                        <span class="flex-shrink-0 w-6 h-6 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </span>
+                        Full book metadata with ISBN and page counts
+                    </li>
+                    <li class="flex items-center gap-3 text-stone-700">
+                        <span class="flex-shrink-0 w-6 h-6 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </span>
+                        Django admin for easy content management
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
